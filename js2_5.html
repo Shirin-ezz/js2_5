@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>State Selector</title>
+  <style>
+    /* Basic styling for layout and aesthetics */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .container {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    select {
+      width: 200px;
+      height: 220px; /* Adjust height to display multiple options */
+      padding: 5px;
+      font-size: 16px;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #selectedStates {
+      margin-top: 30px;
+      padding: 15px;
+      border: 2px solid #4CAF50;
+      border-radius: 5px;
+      width: 300px;
+      min-height: 100px;
+      overflow-y: auto;
+    }
+    #clearButton {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #clearButton:hover {
+      background-color: #d32f2f;
+    }
+    #addStateButton {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #addStateButton:hover {
+      background-color: #006f98;
+    }
+    h2 {
+      color: #333;
+    }
+    .state-item {
+      padding: 5px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .state-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>State Selector</h1>
+
+  <div class="container">
+    <!-- Select Element Displayed as a List -->
+    <select id="stateSelect" size="10">
+      <!-- Options will be populated by JavaScript -->
+    </select>
+
+    <!-- Add State Button -->
+    <div class="buttons">
+      <button type="button" id="addStateButton">Add State</button>
+    </div>
+  </div>
+
+  <!-- Div to Display Selected States -->
+  <div id="selectedStates">
+    <h2>Selected States:</h2>
+    <!-- Selected states will appear here -->
+  </div>
+
+  <!-- Clear States Button -->
+  <button type="button" id="clearButton">Clear States</button>
+
+  <script>
+    // JavaScript code to handle state selection and display
+
+    // Array of at least 10 U.S. states
+    const states = [
+      "Alabama",
+      "Alaska",
+      "Arizona",
+      "Arkansas",
+      "California",
+      "Colorado",
+      "Connecticut",
+      "Delaware",
+      "Florida",
+      "Georgia",
+      "Hawaii",
+      "Idaho",
+      "Illinois",
+      "Indiana",
+      "Iowa"
+    ];
+
+    // Reference to the select element
+    const stateSelect = document.getElementById('stateSelect');
+
+    // Function to populate the select element with options
+    function populateSelect() {
+      states.forEach((state, index) => {
+        const option = document.createElement('option');
+        option.value = state;
+        option.textContent = state;
+        // By default, select the first item
+        if (index === 0) {
+          option.selected = true;
+        }
+        stateSelect.appendChild(option);
+      });
+    }
+
+    // Call the function to populate the select on page load
+    populateSelect();
+
+    // Reference to the Add State button
+    const addStateButton = document.getElementById('addStateButton');
+
+    // Reference to the div where selected states will be displayed
+    const selectedStatesDiv = document.getElementById('selectedStates');
+
+    // Reference to the Clear States button
+    const clearButton = document.getElementById('clearButton');
+
+    // Event listener for Add State button
+    addStateButton.addEventListener('click', () => {
+      const selectedState = stateSelect.value;
+
+      // Create a new paragraph element for the selected state
+      const stateParagraph = document.createElement('p');
+      stateParagraph.textContent = selectedState;
+      stateParagraph.classList.add('state-item');
+
+      // Append the selected state to the div
+      selectedStatesDiv.appendChild(stateParagraph);
+    });
+
+    // Event listener for Clear States button
+    clearButton.addEventListener('click', () => {
+      // Remove all child nodes from the selectedStatesDiv except the header
+      while (selectedStatesDiv.childNodes.length > 1) {
+        selectedStatesDiv.removeChild(selectedStatesDiv.lastChild);
+      }
+    });
+  </script>
+
+</body>
+</html>
