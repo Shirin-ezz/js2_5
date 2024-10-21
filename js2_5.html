@@ -1,53 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>State Selector - Problem 5</title>
+    <title>Problem 5: State Selector</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // JavaScript to populate <select> list and handle adding/clearing states
-        window.onload = function() {
-            // Array of states
+        $(document).ready(function() {
             const states = ["Massachusetts", "New Hamshire", "Rhode Island", "Maine", "Connecticut", "Vermont", "New York", "New Jersey", "North Carolina", "Maryland"];
-            
-            // Populate the <select> element with <option> elements
-            const stateSelect = document.getElementById("stateSelect");
             states.forEach(state => {
-                let option = document.createElement("option");
-                option.value = state;
-                option.textContent = state;
-                stateSelect.appendChild(option);
+                $("#stateSelect").append(`<option value="${state}">${state}</option>`);
             });
 
-            // Add event listener for "Add State" button
-            document.getElementById("addStateButton").onclick = function() {
-                let selectedState = stateSelect.value;
-                if (selectedState) {
-                    let stateDiv = document.getElementById("selectedStates");
-                    stateDiv.innerHTML += selectedState + "<br>";
-                }
-            };
+            $("#addStateButton").click(function() {
+                let selectedState = $("#stateSelect").val();
+                $("#selectedStates").append(`<div>${selectedState}</div>`);
+            });
 
-            // Add event listener for "Clear States" button
-            document.getElementById("clearStatesButton").onclick = function() {
-                document.getElementById("selectedStates").innerHTML = "";
-            };
-        };
+            $("#clearStatesButton").click(function() {
+                $("#selectedStates").empty();
+            });
+        });
     </script>
 </head>
 <body>
-    <h2>Select a State</h2>
-
-    <!-- Select element displaying a list (not a dropdown) -->
     <select id="stateSelect" size="10"></select>
     <button id="addStateButton" type="button">Add State</button>
-
     <br><br>
-
-    <!-- Div with a border to display selected states -->
     <div id="selectedStates" style="border: 1px solid black; padding: 10px; width: 200px; min-height: 50px;"></div>
     <button id="clearStatesButton" type="button">Clear States</button>
-
 </body>
 </html>
+   
